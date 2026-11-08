@@ -1,10 +1,12 @@
 
 package com.Stonad_backend.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.Stonad_backend.entity.Artwork;
 import com.Stonad_backend.repository.ArtworkRepository;
@@ -13,10 +15,16 @@ import com.Stonad_backend.repository.ArtworkRepository;
 public class ArtworkService {
 
     private final ArtworkRepository artworkRepository;
+    
+    private final ImageStorageService imageStorageService;
 
     // Constructor Injection
-    public ArtworkService(ArtworkRepository artworkRepository) {
+    public ArtworkService(
+            ArtworkRepository artworkRepository,
+            ImageStorageService imageStorageService) {
+
         this.artworkRepository = artworkRepository;
+        this.imageStorageService = imageStorageService;
     }
 
     // Save Artwork
@@ -75,5 +83,20 @@ public class ArtworkService {
 
        throw new RuntimeException("Artwork not found with id: " + id);
    }
+   
+// Save Artwork with Image
+public Artwork saveArtworkWithImage(
+        Artwork artwork,
+        MultipartFile image) throws IOException {
+
+    // Store image in uploads folder
+    String filename = imageStorageService.storeImage(image);
+
+    // Set image path in Artwork entity
+    artwork.setImageUrl("uploads/" + filename);
+
+    // Save artwork details in MySQL
+    return artworkRepository.save(artwork);
+}
 
 }

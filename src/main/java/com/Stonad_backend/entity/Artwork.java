@@ -18,6 +18,8 @@ public class Artwork {
     private String description;
 
     private String imageUrl;
+    
+    
 
     @ManyToOne
     @JoinColumn(name = "artist_id", nullable = false)
