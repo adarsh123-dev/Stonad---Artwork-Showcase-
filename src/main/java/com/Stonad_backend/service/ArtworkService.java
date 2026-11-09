@@ -99,4 +99,15 @@ public Artwork saveArtworkWithImage(
     return artworkRepository.save(artwork);
 }
 
+public List<Artwork> searchArtworkByTitle(String title) {
+    return artworkRepository
+            .findByTitleContainingIgnoreCase(title);
+}
+
+//Filter Artwork By Category ID
+public List<Artwork> getArtworkByCategory(Long categoryId) {
+
+ return artworkRepository.findByCategoryId(categoryId);
+}
+
 }

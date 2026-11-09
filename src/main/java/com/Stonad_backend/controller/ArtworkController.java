@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,6 +90,30 @@ public Artwork uploadArtwork(
     artwork.setCategory(category);
 
     return artworkService.saveArtworkWithImage(artwork, image);
+}
+
+
+
+@GetMapping("/search")
+public ResponseEntity<List<Artwork>> searchArtwork(
+        @RequestParam String title) {
+
+    List<Artwork> artworks =
+            artworkService.searchArtworkByTitle(title);
+
+    return ResponseEntity.ok(artworks);
+}
+
+
+//Filter Artwork By Category ID
+@GetMapping("/category/{categoryId}")
+public ResponseEntity<List<Artwork>> getArtworkByCategory(
+     @PathVariable Long categoryId) {
+
+ List<Artwork> artworks =
+         artworkService.getArtworkByCategory(categoryId);
+
+ return ResponseEntity.ok(artworks);
 }
 
 }
