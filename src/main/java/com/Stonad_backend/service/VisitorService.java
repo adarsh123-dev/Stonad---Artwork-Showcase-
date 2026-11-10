@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.Stonad_backend.entity.Visitor;
+import com.Stonad_backend.exception.DuplicateEmailException;
 import com.Stonad_backend.repository.VisitorRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,9 @@ public class VisitorService {
 
     public Visitor registerVisitor(Visitor visitor) {
 
-        if (visitorRepository.existsByEmail(visitor.getEmail())) {
-            throw new RuntimeException("Email already registered!");
-        }
+    	if (visitorRepository.existsByEmail(visitor.getEmail())) {
+    	    throw new DuplicateEmailException("Email already registered!");
+    	}
 
         visitor.setCreatedAt(LocalDateTime.now());
 
