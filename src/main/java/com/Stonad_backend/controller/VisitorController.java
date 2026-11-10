@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.Stonad_backend.entity.Visitor;
 import com.Stonad_backend.service.VisitorService;
 
-
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,7 +32,7 @@ public class VisitorController {
 
 @PostMapping("/login")
 public ResponseEntity<Visitor> loginVisitor(
-        @RequestBody Visitor visitor) {
+        @Valid @RequestBody Visitor visitor) {
 
     Visitor loggedInVisitor = visitorService.loginVisitor(
             visitor.getEmail(),
