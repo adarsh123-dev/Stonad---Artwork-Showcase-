@@ -1,7 +1,9 @@
 package com.Stonad_backend.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +17,16 @@ public class ArtistService {
 
     @Autowired
     private ArtistRepository artistRepository;
+    
+    @Autowired
+    private ImageStorageService imageStorageService;
 
-    // Register Artist
+ // Register Artist
     public Artist registerArtist(Artist artist) {
+
+        if (artistRepository.existsByEmail(artist.getEmail())) {
+            throw new IllegalArgumentException("Email already registered!");
+        }
 
         return artistRepository.save(artist);
     }
@@ -62,5 +71,23 @@ public class ArtistService {
         }
 
         return false;
+    }
+    
+    
+    
+ // Register Artist with Profile Image
+    public Artist registerArtistWithImage(
+            Artist artist,
+            MultipartFile image) throws IOException {
+
+        if (artistRepository.existsByEmail(artist.getEmail())) {
+            throw new IllegalArgumentException("Email already registered!");
+        }
+
+        String filename = imageStorageService.storeImage(image);
+
+        artist.setProfileImage("uploads/" + filename);
+
+        return artistRepository.save(artist);
     }
 }

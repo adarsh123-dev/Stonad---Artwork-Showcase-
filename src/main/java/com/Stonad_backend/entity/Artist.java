@@ -1,3 +1,4 @@
+
 package com.Stonad_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -12,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "artists")
-@JsonPropertyOrder({"id", "name", "email", "bio"})
+@JsonPropertyOrder({"id", "name", "email", "bio", "profileImage"})
 public class Artist {
 
     @Id
@@ -23,5 +24,9 @@ public class Artist {
 
     private String email;
 
+    private String password;
+
     private String bio;
+
+    private String profileImage;
 }

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17131f">
+  <title>STONAD — Art, made visible</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="announcement">A space for art, artists & curious minds <span>✦</span> Discover something original</div>
+  <header class="site-header">
+    <a class="brand" href="#" data-view="home"><span class="brand-mark">S</span> STONAD<span class="brand-dot">.</span></a>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">☰</button>
+    <nav id="mainNav">
+      <a href="#" data-view="home" class="nav-link active">Home</a>
+      <a href="#" data-view="gallery" class="nav-link">Explore art</a>
+      <a href="#" data-view="artists" class="nav-link">Artists</a>
+      <a href="#" data-view="upload" class="nav-link">Share artwork</a>
+    </nav>
+    <div class="header-actions">
+      <button class="btn btn-quiet" id="loginButton">Log in</button>
+      <button class="btn btn-dark" id="joinButton">Join STONAD <span>↗</span></button>
+      <button class="avatar-button hidden" id="profileButton" aria-label="Open profile">A</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="view active" id="homeView">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> THE CREATIVE CANVAS</p>
+          <h1>Art deserves<br>to be <em>seen.</em></h1>
+          <p class="hero-description">Discover original work, meet the minds behind it, and find inspiration in every brushstroke.</p>
+          <div class="hero-actions">
+            <button class="btn btn-accent" data-view="gallery">Explore the gallery <span>↗</span></button>
+            <button class="text-link" data-view="artists">Meet our artists <span>→</span></button>
+          </div>
+          <div class="hero-foot"><span class="tiny-star">✳</span><span>A home for independent creativity</span></div>
+        </div>
+        <div class="hero-art">
+          <div class="hero-art-back"></div>
+          <div class="hero-art-main">
+            <div class="art-orb orb-one"></div><div class="art-orb orb-two"></div>
+            <div class="art-shape shape-one"></div><div class="art-shape shape-two"></div>
+            <div class="art-shape shape-three"></div>
+            <span class="art-stamp">ART<br>IS<br>ALIVE</span>
+          </div>
+          <div class="floating-note"><span class="note-icon">✦</span><span><b>Made to inspire</b><small>Art without boundaries</small></span></div>
+          <span class="hero-index">01 / 04</span>
+        </div>
+      </div>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <div><p class="eyebrow">CURATED FOR YOU</p><h2>Fresh from the <em>canvas.</em></h2></div>
+          <button class="text-link" data-view="gallery">View all artwork <span>→</span></button>
+        </div>
+        <div class="art-grid" id="featuredArt"><div class="loading">Loading artwork…</div></div>
+      </section>
+
+      <section class="artist-banner">
+        <div><p class="eyebrow light">YOUR SPACE. YOUR STORY.</p><h2>Every artist has<br>a world to share.</h2><p>Put your creativity in front of people who appreciate it.</p><button class="btn btn-light" data-view="upload">Share your artwork <span>↗</span></button></div>
+        <div class="banner-symbol">✳</div>
+      </section>
+    </section>
+
+    <section class="view page-view" id="galleryView">
+      <div class="page-intro"><p class="eyebrow">THE STONAD COLLECTION</p><h1>Explore <em>artwork.</em></h1><p>Find a piece that speaks your language.</p></div>
+      <div class="toolbar">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Search artwork by title…"><button id="clearSearch" aria-label="Clear search">×</button></label>
+        <select id="categoryFilter"><option value="">All categories</option></select>
+      </div>
+      <div class="results-label" id="galleryCount">Loading collection…</div>
+      <div class="art-grid" id="allArt"><div class="loading">Loading artwork…</div></div>
+    </section>
+
+    <section class="view page-view" id="artistsView">
+      <div class="page-intro"><p class="eyebrow">THE PEOPLE BEHIND THE ART</p><h1>Meet the <em>artists.</em></h1><p>Creative minds, individual stories, original perspectives.</p></div>
+      <div class="artist-grid" id="artistGrid"><div class="loading">Loading artists…</div></div>
+    </section>
+
+    <section class="view page-view" id="uploadView">
+      <div class="page-intro"><p class="eyebrow">PUT YOUR WORK OUT THERE</p><h1>Share your <em>artwork.</em></h1><p>Upload an original piece and add it to the STONAD gallery.</p></div>
+      <div class="form-panel">
+        <div class="form-aside"><span class="aside-star">✳</span><h2>Your art.<br>Your <em>voice.</em></h2><p>Choose your best work. Tell us a little about it. Let the world see it.</p><small>Accepted image formats depend on your browser. Maximum upload size: 5 MB.</small></div>
+        <form id="uploadForm" class="form-content">
+          <label>Artwork title<input name="title" required maxlength="120" placeholder="e.g. The Quiet Bloom"></label>
+          <label>Description<textarea name="description" rows="4" placeholder="Tell us about this artwork…"></textarea></label>
+          <div class="form-row"><label>Artist<select name="artistId" id="uploadArtist" required><option value="">Choose artist</option></select></label><label>Category<select name="categoryId" id="uploadCategory" required><option value="">Choose category</option></select></label></div>
+          <label class="file-drop" for="artImage"><span class="upload-icon">↑</span><b>Choose an image to upload</b><small>PNG, JPG, WEBP · Up to 5 MB</small><span id="fileName">No file selected</span><input type="file" name="image" id="artImage" accept="image/*" required></label>
+          <button class="btn btn-accent btn-wide" type="submit">Publish artwork <span>↗</span></button>
+          <p class="form-message" id="uploadMessage" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="view page-view" id="profileView">
+      <div class="page-intro"><p class="eyebrow">YOUR STONAD SPACE</p><h1>Your <em>profile.</em></h1><p>Manage your visitor details.</p></div>
+      <div class="profile-panel">
+        <div class="profile-badge" id="profileInitial">A</div>
+        <div class="profile-fields">
+          <form id="profileForm">
+            <label>Name<input name="name" id="profileName" required></label>
+            <label>Email<input name="email" id="profileEmail" type="email" required></label>
+            <button class="btn btn-accent" type="submit">Save changes</button>
+            <button class="btn btn-quiet" type="button" id="logoutButton">Log out</button>
+            <p class="form-message" id="profileMessage" aria-live="polite"></p>
+          </form>
+          <button class="danger-link" id="deleteProfileButton">Delete visitor account</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand footer-brand" href="#" data-view="home"><span class="brand-mark">S</span> STONAD<span class="brand-dot">.</span></a>
+    <p>Made for art. Built for everyone.</p>
+    <span>© <span id="year"></span> STONAD</span>
+  </footer>
+
+  <div class="modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="modal-backdrop" data-close-modal></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close-modal aria-label="Close">×</button>
+      <div class="modal-kicker">WELCOME TO STONAD</div>
+      <h2 id="authTitle">Come on <em>in.</em></h2>
+      <div class="auth-tabs"><button class="auth-tab active" data-auth="login">Log in</button><button class="auth-tab" data-auth="register">Create account</button></div>
+      <form id="authForm">
+        <label id="authNameWrap" class="hidden">Your name<input name="name" id="authName" placeholder="Your full name"></label>
+        <label>Email address<input name="email" id="authEmail" type="email" required placeholder="you@example.com"></label>
+        <label>Password<input name="password" id="authPassword" type="password" required minlength="6" placeholder="At least 6 characters"></label>
+        <button class="btn btn-accent btn-wide" type="submit" id="authSubmit">Log in <span>↗</span></button>
+        <p class="form-message" id="authMessage" aria-live="polite"></p>
+      </form>
+      <p class="auth-note">By continuing, you agree to use STONAD respectfully and share only work you have permission to publish.</p>
+    </div>
+  </div>
+
+  <div class="modal hidden" id="detailModal" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close-detail></div><div class="detail-card"><button class="modal-close" data-close-detail>×</button><div id="detailContent"></div></div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="/js/app.js"></script>
+</body>
+</html>

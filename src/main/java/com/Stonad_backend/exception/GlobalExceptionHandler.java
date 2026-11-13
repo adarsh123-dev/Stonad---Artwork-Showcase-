@@ -56,4 +56,40 @@ public class GlobalExceptionHandler {
 
 	    return new ResponseEntity<>(errors, HttpStatus.CONFLICT);
 	}
+	
+	@ExceptionHandler(VisitorNotFoundException.class)
+	public ResponseEntity<Map<String, String>> handleVisitorNotFound(
+	        VisitorNotFoundException ex) {
+
+	    Map<String, String> errors = new HashMap<>();
+
+	    errors.put("error", ex.getMessage());
+
+	    return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
+	}
+	
+	
+	@ExceptionHandler(InvalidPasswordException.class)
+	public ResponseEntity<Map<String, String>> handleInvalidPassword(
+	        InvalidPasswordException ex) {
+
+	    Map<String, String> errors = new HashMap<>();
+
+	    errors.put("error", ex.getMessage());
+
+	    return new ResponseEntity<>(errors, HttpStatus.UNAUTHORIZED);
+	}
+	
+	
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Map<String, String>> handleGlobalException(
+	        Exception ex) {
+
+	    Map<String, String> errors = new HashMap<>();
+
+	    errors.put("error", "Something went wrong. Please try again later.");
+
+	    return new ResponseEntity<>(errors, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }

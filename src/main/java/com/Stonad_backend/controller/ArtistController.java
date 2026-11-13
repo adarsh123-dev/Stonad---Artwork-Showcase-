@@ -1,5 +1,6 @@
 package com.Stonad_backend.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.Stonad_backend.entity.Artist;
 import com.Stonad_backend.service.ArtistService;
@@ -23,11 +26,13 @@ public class ArtistController {
     @Autowired
     private ArtistService artistService;
 
-    // Register Artist
+ // Register Artist
     @PostMapping
-    public Artist registerArtist(@RequestBody Artist artist) {
+    public ResponseEntity<Artist> registerArtist(@RequestBody Artist artist) {
 
-        return artistService.registerArtist(artist);
+        Artist savedArtist = artistService.registerArtist(artist);
+
+        return ResponseEntity.status(201).body(savedArtist);
     }
     
  // Get all artists
@@ -70,5 +75,30 @@ public class ArtistController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+    
+    
+    
+ // Register Artist with Profile Image
+    @PostMapping("/register")
+    public ResponseEntity<Artist> registerArtistWithImage(
+            @RequestParam("name") String name,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("bio") String bio,
+            @RequestParam("image") MultipartFile image
+    ) throws IOException {
+
+        Artist artist = new Artist();
+
+        artist.setName(name);
+        artist.setEmail(email);
+        artist.setPassword(password);
+        artist.setBio(bio);
+
+        Artist savedArtist =
+                artistService.registerArtistWithImage(artist, image);
+
+        return ResponseEntity.status(201).body(savedArtist);
     }
 }
